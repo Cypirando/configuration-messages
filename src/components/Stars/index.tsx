@@ -1,34 +1,21 @@
-import React, { useState } from "react";
-import { StyledStars } from "./styles";
+import React from "react";
+import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
+import { Rate } from "antd";
 
-interface StarsProps {
-  children: string;
-}
-
-const Stars = (props: StarsProps) => {
-  const [rating, setRating] = useState(0);
-
-  return (
-    <div>
-      {[1, 2, 3, 4, 5].map((star) => {
-        const status = star <= rating;
-        return (
-          <div key={star}>
-            <div
-              onClick={() => setRating(star)}
-              style={{
-                display: "flex",
-                color: status ? "#ffd000" : "#46536d",
-              }}
-            >
-              <StyledStars>&#9733;</StyledStars>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-  //   <StyledStars>{props.children}</StyledStars>;
+const customIcons: Record<number, React.ReactNode> = {
+  1: <FrownOutlined />,
+  2: <FrownOutlined />,
+  3: <MehOutlined />,
+  4: <SmileOutlined />,
+  5: <SmileOutlined />,
 };
+const character = ({ index }: any) => {
+  return customIcons[index + 1];
+};
+const App: React.FC = () => (
+  <>
+    <Rate defaultValue={3} character={character} />
+  </>
+);
 
-export default Stars;
+export default App;
