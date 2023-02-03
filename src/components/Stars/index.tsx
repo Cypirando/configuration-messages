@@ -12,7 +12,7 @@ const customIcons: Record<number, React.ReactNode> = {
 const character = ({ index }: any) => {
   return customIcons[index + 1];
 };
-const App: React.FC = () => {
+const Stars: React.FC = () => {
   const [rating, setRating] = useState<number>(3);
   return (
     <>
@@ -25,4 +25,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Stars;
