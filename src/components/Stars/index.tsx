@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
 import { Rate } from "antd";
 
@@ -12,10 +12,17 @@ const customIcons: Record<number, React.ReactNode> = {
 const character = ({ index }: any) => {
   return customIcons[index + 1];
 };
-const App: React.FC = () => (
-  <>
-    <Rate defaultValue={3} character={character} />
-  </>
-);
+const App: React.FC = () => {
+  const [rating, setRating] = useState<number>(3);
+  return (
+    <>
+      <Rate
+        defaultValue={rating}
+        character={character}
+        onChange={(newValue) => setRating(newValue)}
+      />
+    </>
+  );
+};
 
 export default App;
