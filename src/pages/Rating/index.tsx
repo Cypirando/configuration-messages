@@ -1,36 +1,49 @@
-// import { ReactElement } from "react";
-import React from "react";
+import { message } from "antd";
+import { useState } from "react";
 import Button from "../../components/Button";
 import Form from "../../components/Form";
 import Stars from "../../components/Stars";
 import TextRatingUser from "../../components/TextRatingUser";
+import { postAssessment } from "../../api";
 
 import Title from "../../components/Title";
 import { StyledCenter } from "./styles";
 
 const Rating = (props: any) => {
-  const handleClick =  () => {
-    console.log("oi")
-    // if (!configText) {
-    //   alert("O campo da questão é obrigatório!");
-    //   return;
-    // }
+  const [feedback_end, setFeedback_end] = useState("");
+  const [rating, setRating] = useState<number>(3);
 
-    // try {
-    //   const response = await postData(configText, configRating);
-    //   message.success("Dados enviados com sucesso!");
-    // } catch (error) {
-    //   message.error("Erro ao enviar dados");
-    // }
+  const handleRatingChange = (value: number) => {
+    setRating(value);
   };
+
+  const handleFeedbackChange = (newValue: any) => {
+    setFeedback_end(newValue);
+  };
+
+  const handleClick = async () => {
+    if (!feedback_end) {
+      message.error("so campos são obrigatório!");
+      return;
+    }
+    
+    try {
+      const response = await postAssessment(feedback_end, rating);
+      message.success("Dados enviados com sucesso!");
+      console.log(response, "response");
+    } catch (error) {
+      message.error("Erro ao enviar dados");
+    }
+  };
+
 
   return (
     <Form>
       <Title>Configurações da avaliação</Title>
       <StyledCenter>
-        <Stars />
+        <Stars onChange={handleRatingChange} value={rating} />
       </StyledCenter>
-      <TextRatingUser />
+      <TextRatingUser onChange={handleFeedbackChange} value={feedback_end} />
       <Button onClick={handleClick}>Avançar</Button>
     </Form>
   );

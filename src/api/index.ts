@@ -21,43 +21,43 @@ export const postData = async (question_text:string, feedback_text:string) => {
   }
 };
 
-// export const getRatingConfig = async () => {
-//   const configHeader = {
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Access-Control-Allow-Origin": "*",
-//       "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
-//     },
-//   };
+export const getRatingConfig = async () => {
+  const configHeader = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
+    },
+  };
 
-//   try {
-//     const response = await axios.post(
-//       "https://4016-189-4-107-66.sa.ngrok.io/quiz/23",
-//       configHeader
-//     );
-//     return response.data.message[0];
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+  try {
+    const response = await axios.post(
+      "http://localhost:9000/quiz/23",
+      configHeader
+    );
+    return response.data.message[0];
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-// export const postAssessment = async (rating, feedback_end) => {
-//   const configHeader = {
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Access-Control-Allow-Origin": "*",
-//       "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
-//     },
-//   };
+export const postAssessment = async ( feedback_end:string, rating:number,) => {
+  const configHeader = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
+    },
+  };
 
-//   try {
-//     const response = await axios.post(
-//       "https://4016-189-4-107-66.sa.ngrok.io/assessment",
-//       { feedback_end, rating },
-//       configHeader
-//     );
-//     return response;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+  try {
+    const response = await axios.post(
+      "http://localhost:9000/assessment",
+      { feedback_end, rating },
+      configHeader
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};

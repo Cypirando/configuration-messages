@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
 import { Rate } from "antd";
 
@@ -9,18 +8,20 @@ const customIcons: Record<number, React.ReactNode> = {
   4: <SmileOutlined />,
   5: <SmileOutlined />,
 };
+interface StarProps {
+  onChange: (newValue: number) => void;
+  value: number;
+}
 const character = ({ index }: any) => {
   return customIcons[index + 1];
 };
-const Stars: React.FC = () => {
-  const [rating, setRating] = useState<number>(3);
+const Stars: React.FC<StarProps> = ({ onChange, value }) => {
+  const handleChange = (value: number) => {
+    onChange(value);
+  };
   return (
     <>
-      <Rate
-        defaultValue={rating}
-        character={character}
-        onChange={(newValue) => setRating(newValue)}
-      />
+      <Rate defaultValue={3} character={character} onChange={handleChange} />
     </>
   );
 };

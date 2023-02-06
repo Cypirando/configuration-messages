@@ -24,7 +24,7 @@ const RatingConfiguration = () => {
       message.error("O campos da questão é obrigatório!");
       return;
     }
-    console.log("click");
+    
     try {
       const response = await postData(question_text, feedback_text);
       message.success("Dados enviados com sucesso!");

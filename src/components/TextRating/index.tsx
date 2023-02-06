@@ -1,11 +1,6 @@
-import React from "react";
 import { Input } from "antd";
-
 const { TextArea } = Input;
 
-// type Props = {
-//   onChange: (value: string) => void;
-// };
 interface TextConfigProps {
   onChange: (newValue: any) => void;
   value: string;
