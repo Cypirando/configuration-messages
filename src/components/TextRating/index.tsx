@@ -1,21 +1,33 @@
-import { Input } from 'antd';
+import React from "react";
+import { Input } from "antd";
 
 const { TextArea } = Input;
 
-const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-  console.log('Change:', e.target.value);
+// type Props = {
+//   onChange: (value: string) => void;
+// };
+interface TextConfigProps {
+  onChange: (newValue: any) => void;
+  value: string;
+}
+
+const TextRating: React.FC<TextConfigProps> = ({ onChange, value }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onChange(e.target.value);
+  };
+
+  return (
+    <>
+      <TextArea
+        showCount
+        maxLength={150}
+        style={{ height: 120, resize: "none" }}
+        onChange={handleChange}
+        placeholder="Deixe aqui sua pergunta..."
+      />
+    </>
+  );
 };
 
-const TextRating: React.FC = () => (
-  <>
-    <TextArea
-      showCount
-      maxLength={150}
-      style={{ height: 120, resize: 'none' }}
-      onChange={onChange}
-      placeholder="Deixe aqui seu feedback..."
-    />
-  </>
-);
-
 export default TextRating;
+

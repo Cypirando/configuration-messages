@@ -3,6 +3,7 @@ import React from "react";
 import { StyledButton } from "./styles";
 
 interface ButtonProps {
+  onClick: () => void;
   children:string;
 }
 
