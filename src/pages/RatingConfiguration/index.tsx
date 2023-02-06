@@ -20,11 +20,15 @@ const RatingConfiguration = () => {
   };
 
   const handleClick = async () => {
-console.log("click")
+    if (!question_text) {
+      message.error("O campos da questão é obrigatório!");
+      return;
+    }
+    console.log("click");
     try {
       const response = await postData(question_text, feedback_text);
       message.success("Dados enviados com sucesso!");
-      console.log(response, "response")
+      console.log(response, "response");
     } catch (error) {
       message.error("Erro ao enviar dados");
     }

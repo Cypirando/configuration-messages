@@ -11,6 +11,7 @@ interface TextConfigProps {
 const TextConfig: React.FC<TextConfigProps> = ({ onChange, value })  => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange(e.target.value);
+    console.log('Change:', e.target.value)
   };
 
   return (

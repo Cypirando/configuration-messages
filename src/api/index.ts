@@ -11,7 +11,7 @@ export const postData = async (question_text:string, feedback_text:string) => {
   };
   try {
     const response = await axios.post(
-      "http://localhost:3000/quiz",
+      "http://localhost:9000/quiz",
       { question_text, feedback_text },
       configHeader
     );
