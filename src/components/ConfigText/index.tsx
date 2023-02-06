@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Title from "../Title";
 
 interface Question {
     id: number;
@@ -13,7 +12,9 @@ interface Question {
     }
   
     const [ratingConfig, setRatingConfig] = useState<Question[]>([]);
-    const questionText = ratingConfig.length ? getQuestionText(ratingConfig, 23) : '';
+/*Mudar o id aqui */
+    const questionText = ratingConfig.length ? getQuestionText(ratingConfig, 26) : '';
+/* */
     useEffect(() => {
       axios(`http://localhost:9000/quiz`).then((dados) => {
         setRatingConfig(dados.data.message);
@@ -22,7 +23,7 @@ interface Question {
     console.log(questionText, "dddd");
     return (
       <>
-        <Title>{questionText}</Title>
+        <p>{questionText}</p>
       </>
     );
   };

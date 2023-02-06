@@ -1,14 +1,14 @@
 import { message } from "antd";
 import { useState } from "react";
 import Button from "../../components/Button";
-import ConfigText  from "../../components/ConfigText";
+import ConfigText from "../../components/ConfigText";
+import ConfigFeedback from "../../components/ConfigFeedback";
 import Form from "../../components/Form";
 import Stars from "../../components/Stars";
 import TextRatingUser from "../../components/TextRatingUser";
 import { postAssessment } from "../../api";
 import Title from "../../components/Title";
-import { StyledCenter, StyledQuestions } from "./styles";
-
+import { StyledCenter, StyledQuestions,StyledFeedback } from "./styles";
 
 const Rating = (props: any) => {
   const [feedback_end, setFeedback_end] = useState("");
@@ -41,20 +41,21 @@ const Rating = (props: any) => {
   //   getRatingConfig().then((ratingConfig) => setRatingConfig(ratingConfig));
   // }, []);
 
-
   return (
     <Form>
       <Title>Configurações da avaliação</Title>
 
       <StyledQuestions>
-        <ConfigText/>
+        <ConfigText />
       </StyledQuestions>
 
       <StyledCenter>
         <Stars onChange={handleRatingChange} value={rating} />
       </StyledCenter>
 
-      <StyledQuestions>Feedback</StyledQuestions>
+      <StyledFeedback>
+        <ConfigFeedback />
+      </StyledFeedback>
 
       <TextRatingUser onChange={handleFeedbackChange} value={feedback_end} />
       <Button onClick={handleClick}>Avançar</Button>

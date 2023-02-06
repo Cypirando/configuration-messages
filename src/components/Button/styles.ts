@@ -10,6 +10,8 @@ export const StyledButton = styled.button`
   border-radius: 4px;
   border: none;
   cursor: pointer;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
   &:hover {
     background-color: #000fff;
   }

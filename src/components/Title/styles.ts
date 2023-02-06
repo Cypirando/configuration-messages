@@ -9,5 +9,7 @@ export const StyledTitle = styled.h1`
   font-size: 16px;
   border-radius: 4px;
   border: none;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
  
 `;

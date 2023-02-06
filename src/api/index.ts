@@ -1,7 +1,10 @@
 import axios from "axios";
 
-export const postData = async (question_text:string, feedback_text:string) => {
-  console.log("entrou")
+export const postData = async (
+  question_text: string,
+  feedback_text: string
+) => {
+  console.log("entrou");
   const configHeader = {
     headers: {
       "Content-Type": "application/json",
@@ -21,29 +24,7 @@ export const postData = async (question_text:string, feedback_text:string) => {
   }
 };
 
-// export const getRatingConfig = async () => {
-//   console.log("oii")
-//   const configHeader = {
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Access-Control-Allow-Origin": "*",
-//       "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
-//     },
-//   };
-
-//   try {
-//     const parametros = useParams()
-//     const response = await axios.get(
-//       `http://localhost:9000/quiz?id={}`,
-//       configHeader
-//     );
-//     return response.data.message;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-export const postAssessment = async ( feedback_end:string, rating:number,) => {
+export const postAssessment = async (feedback_end: string, rating: number) => {
   const configHeader = {
     headers: {
       "Content-Type": "application/json",
