@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const postData = async (configText:string, configRating:string) => {
+export const postData = async (question_text:string, feedback_text:string) => {
+  console.log("entrou")
   const configHeader = {
     headers: {
       "Content-Type": "application/json",
@@ -9,9 +10,9 @@ export const postData = async (configText:string, configRating:string) => {
     },
   };
   try {
-    const response = axios.post(
+    const response = await axios.post(
       "http://localhost:3000/quiz",
-      { configText, configRating },
+      { question_text, feedback_text },
       configHeader
     );
     return response;
