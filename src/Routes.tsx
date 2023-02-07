@@ -16,6 +16,14 @@ function RoutesApp() {
           }
         />
         <Route
+          path="/rating/:id"
+          element={
+            <StyledRoutesApp>
+              <Rating />
+            </StyledRoutesApp>
+          }
+        />
+        <Route
           path="/rating"
           element={
             <StyledRoutesApp>
