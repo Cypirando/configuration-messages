@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { message, Modal } from "antd";
 import { useState } from "react";
 import Button from "../../components/Button";
 import ConfigText from "../../components/ConfigText";
@@ -9,17 +9,11 @@ import TextRatingUser from "../../components/TextRatingUser";
 import { postAssessment } from "../../api";
 import Title from "../../components/Title";
 import { StyledCenter, StyledQuestions, StyledFeedback } from "./styles";
-import {useNavigate } from "react-router-dom";
 
 const Rating = (props: any) => {
-  const [success, setSuccess] = useState(false);
-  // const location = useLocation();
-  // const success = location.state?.success;
-
-  let navigate = useNavigate();
   const [feedback_end, setFeedback_end] = useState("");
   const [rating, setRating] = useState<number>(3);
-  // const [ratingConfig, setRatingConfig] = useState({});
+  const [visible, setVisible] = useState(false);
 
   const handleRatingChange = (value: number) => {
     setRating(value);
@@ -29,7 +23,8 @@ const Rating = (props: any) => {
     setFeedback_end(newValue);
   };
 
-  const handleClick = async () => {
+  const handleClick = async (e: any) => {
+    e.preventDefault();
     if (!feedback_end) {
       message.error("so campos são obrigatório!");
       return;
@@ -37,20 +32,25 @@ const Rating = (props: any) => {
 
     try {
       const response = await postAssessment(feedback_end, rating);
-      message.success("Dados enviados com sucesso!");
-      setSuccess(true);
-      await navigate("/success");/**, { state: { success: true } } */
-      console.log(response, "response");
+      setVisible(true);
     } catch (error) {
       message.error("Erro ao enviar dados");
     }
   };
-  if (success) {
-    return null;
-  }
-
+  const handleOk = () => {
+    setVisible(false);
+    message.success("Dados enviados com sucesso!");
+  };
   return (
     <Form>
+      <Modal
+        title="Aviso"
+        visible={visible}
+        onOk={handleOk}
+        onCancel={() => setVisible(false)}
+      >
+        <p>Obrigado por avaliar</p>
+      </Modal>
       <Title>Configurações da avaliação</Title>
 
       <StyledQuestions>
