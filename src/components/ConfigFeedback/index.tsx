@@ -8,15 +8,16 @@ interface Question {
 }
 
 const ConfigFeedback = () => {
-
   const [feedConfig, setFeedConfig] = useState<Question[]>([]);
   const [feedbackText, setFeedbackText] = useState("");
   const [searchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!searchParams) {
+    if (!searchParams || isLoading) {
       return;
     }
+    setIsLoading(true);
 
     axios(`http://localhost:9000/quiz`).then(({ data: { message } }) => {
       if (!message) return;
@@ -29,9 +30,12 @@ const ConfigFeedback = () => {
               .feedback_text
           : ""
       );
+      setIsLoading(false);
     });
-  }, [searchParams]);
-
+  }, []);
+  if (isLoading) {
+    return <p>Carregando...</p>;
+  }
 
   return <p>{feedbackText}</p>;
 };

@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -10,12 +11,14 @@ const ConfigText = () => {
   
   const [ratingConfig, setRatingConfig] = useState<Question[]>([]);
   const [questionText, setQuestionText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    if (!searchParams) {
+    if (!searchParams || isLoading) {
       return;
     }
+    setIsLoading(true);
 
     axios(`http://localhost:9000/quiz`).then(({ data: { message } }) => {
       if (!message) return;
@@ -28,8 +31,9 @@ const ConfigText = () => {
               .question_text
           : ""
       );
+      setIsLoading(false);
     });
-  }, [searchParams]);
+  }, []);
 
   return <p>{questionText}</p>;
 };
