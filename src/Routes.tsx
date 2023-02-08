@@ -2,6 +2,7 @@ import RatingConfiguration from "./pages/RatingConfiguration";
 import { StyledRoutesApp } from "./styles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Rating from "./pages/Rating";
+import Success from "./pages/Success";
 
 function RoutesApp() {
   return (
@@ -28,6 +29,15 @@ function RoutesApp() {
           element={
             <StyledRoutesApp>
               <Rating />
+            </StyledRoutesApp>
+          }
+        />
+        
+        <Route
+          path="/success"
+          element={
+            <StyledRoutesApp>
+              <Success />
             </StyledRoutesApp>
           }
         />

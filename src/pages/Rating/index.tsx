@@ -8,9 +8,15 @@ import Stars from "../../components/Stars";
 import TextRatingUser from "../../components/TextRatingUser";
 import { postAssessment } from "../../api";
 import Title from "../../components/Title";
-import { StyledCenter, StyledQuestions,StyledFeedback } from "./styles";
+import { StyledCenter, StyledQuestions, StyledFeedback } from "./styles";
+import {useNavigate } from "react-router-dom";
 
 const Rating = (props: any) => {
+  const [success, setSuccess] = useState(false);
+  // const location = useLocation();
+  // const success = location.state?.success;
+
+  let navigate = useNavigate();
   const [feedback_end, setFeedback_end] = useState("");
   const [rating, setRating] = useState<number>(3);
   // const [ratingConfig, setRatingConfig] = useState({});
@@ -32,14 +38,16 @@ const Rating = (props: any) => {
     try {
       const response = await postAssessment(feedback_end, rating);
       message.success("Dados enviados com sucesso!");
+      setSuccess(true);
+      await navigate("/success");/**, { state: { success: true } } */
       console.log(response, "response");
     } catch (error) {
       message.error("Erro ao enviar dados");
     }
   };
-  // useEffect(() => {
-  //   getRatingConfig().then((ratingConfig) => setRatingConfig(ratingConfig));
-  // }, []);
+  if (success) {
+    return null;
+  }
 
   return (
     <Form>
