@@ -7,32 +7,33 @@ interface Question {
   feedback_text: string;
 }
 
-const ConfigFeedback = (props: any) => {
-  function getFeedbackText(array: Question[], id: number): string {
-    return array.filter((obj) => obj.id === id)[0].feedback_text;
-  }
+const ConfigFeedback = () => {
 
   const [feedConfig, setFeedConfig] = useState<Question[]>([]);
+  const [feedbackText, setFeedbackText] = useState("");
+  const [searchParams] = useSearchParams();
 
-  let [searchParams] = useSearchParams();
-  let idStr: any = searchParams.get("id");
-  let newId: number = +idStr;
-  /*Mudar o id aqui */
-  const feedbackText = feedConfig.length
-    ? getFeedbackText(feedConfig, newId)
-    : "";
-  /*Mudar o id aqui */
   useEffect(() => {
-    axios(`http://localhost:9000/quiz`).then((dados) => {
-      setFeedConfig(dados.data.message);
-    });
-  }, []);
+    if (!searchParams) {
+      return;
+    }
 
-  return (
-    <>
-      <p>{feedbackText}</p>
-    </>
-  );
+    axios(`http://localhost:9000/quiz`).then(({ data: { message } }) => {
+      if (!message) return;
+      setFeedConfig(message);
+      const idStr = searchParams.get("id");
+      const id = idStr ? +idStr : 0;
+      setFeedbackText(
+        message.length
+          ? message.filter(({ id: questionId }: any) => id === questionId)[0]
+              .feedback_text
+          : ""
+      );
+    });
+  }, [searchParams]);
+
+
+  return <p>{feedbackText}</p>;
 };
 
 export default ConfigFeedback;

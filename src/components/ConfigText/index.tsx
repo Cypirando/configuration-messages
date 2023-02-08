@@ -7,6 +7,7 @@ interface Question {
   question_text: string;
 }
 const ConfigText = () => {
+  
   const [ratingConfig, setRatingConfig] = useState<Question[]>([]);
   const [questionText, setQuestionText] = useState("");
   const [searchParams] = useSearchParams();
