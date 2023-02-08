@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -8,7 +7,6 @@ interface Question {
   question_text: string;
 }
 const ConfigText = () => {
-  
   const [ratingConfig, setRatingConfig] = useState<Question[]>([]);
   const [questionText, setQuestionText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -23,14 +21,19 @@ const ConfigText = () => {
     axios(`http://localhost:9000/quiz`).then(({ data: { message } }) => {
       if (!message) return;
       setRatingConfig(message);
+      let id = 23;
       const idStr = searchParams.get("id");
-      const id = idStr ? +idStr : 0;
-      setQuestionText(
-        message.length
-          ? message.filter(({ id: questionId }: any) => id === questionId)[0]
-              .question_text
-          : ""
-      );
+      id = idStr ? +idStr : 0;
+      const selectedQuestion = message.filter(
+        ({ id: questionId }: any) => id === questionId
+      )[0];
+      setQuestionText(selectedQuestion ? selectedQuestion.question_text : "");
+      // setQuestionText(
+      //   message.length
+      //     ? message.filter(({ id: questionId }: any) => id === questionId)[0]
+      //         .question_text
+      //     : ""
+      // );
       setIsLoading(false);
     });
   }, []);

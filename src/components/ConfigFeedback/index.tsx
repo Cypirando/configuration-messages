@@ -22,14 +22,19 @@ const ConfigFeedback = () => {
     axios(`http://localhost:9000/quiz`).then(({ data: { message } }) => {
       if (!message) return;
       setFeedConfig(message);
+      let id = 23;
       const idStr = searchParams.get("id");
-      const id = idStr ? +idStr : 0;
-      setFeedbackText(
-        message.length
-          ? message.filter(({ id: questionId }: any) => id === questionId)[0]
-              .feedback_text
-          : ""
-      );
+      id = idStr ? +idStr : 0;
+      // setFeedbackText(
+      //   message.length
+      //     ? message.filter(({ id: questionId }: any) => id === questionId)[0]
+      //         .feedback_text
+      //     : ""
+      // );
+      const selectedQuestion = message.filter(
+        ({ id: questionId }: any) => id === questionId
+      )[0];
+      setFeedbackText(selectedQuestion ? selectedQuestion.feedback_text : "");
       setIsLoading(false);
     });
   }, []);
