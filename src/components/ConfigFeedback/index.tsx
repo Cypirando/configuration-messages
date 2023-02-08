@@ -25,12 +25,6 @@ const ConfigFeedback = () => {
       let id = 23;
       const idStr = searchParams.get("id");
       id = idStr ? +idStr : 0;
-      // setFeedbackText(
-      //   message.length
-      //     ? message.filter(({ id: questionId }: any) => id === questionId)[0]
-      //         .feedback_text
-      //     : ""
-      // );
       const selectedQuestion = message.filter(
         ({ id: questionId }: any) => id === questionId
       )[0];

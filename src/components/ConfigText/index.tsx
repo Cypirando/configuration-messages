@@ -28,12 +28,6 @@ const ConfigText = () => {
         ({ id: questionId }: any) => id === questionId
       )[0];
       setQuestionText(selectedQuestion ? selectedQuestion.question_text : "");
-      // setQuestionText(
-      //   message.length
-      //     ? message.filter(({ id: questionId }: any) => id === questionId)[0]
-      //         .question_text
-      //     : ""
-      // );
       setIsLoading(false);
     });
   }, []);
