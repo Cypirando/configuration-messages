@@ -3,7 +3,7 @@ import Button from "../../components/Button";
 import Form from "../../components/Form";
 import TextConfig from "../../components/TextConfig";
 import TextRating from "../../components/TextRating";
-import Title from "../../components/Title";
+// import Title from "../../components/Title";
 import { message } from "antd";
 import { postData } from "../../api";
 
@@ -36,7 +36,7 @@ const RatingConfiguration = () => {
 
   return (
     <Form>
-      <Title>Configurações da avaliação</Title>
+      {/* <Title>Configurações da avaliação</Title> */}
       <TextConfig onChange={handleTextConfigChange} value={question_text} />
       <TextRating onChange={handleTextRatingChange} value={feedback_text} />
       <Button onClick={handleClick}>Avançar</Button>

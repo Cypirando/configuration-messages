@@ -1,13 +1,13 @@
 import { message, Modal } from "antd";
 import { useState } from "react";
 import Button from "../../components/Button";
-import ConfigText from "../../components/ConfigText";
-import ConfigFeedback from "../../components/ConfigFeedback";
+// import ConfigText from "../../components/ConfigText";
+// import ConfigFeedback from "../../components/ConfigFeedback";
 import Form from "../../components/Form";
 import Stars from "../../components/Stars";
 import TextRatingUser from "../../components/TextRatingUser";
 import { postAssessment } from "../../api";
-import Title from "../../components/Title";
+
 import { StyledCenter, StyledQuestions, StyledFeedback } from "./styles";
 
 const Rating = (props: any) => {
@@ -32,6 +32,7 @@ const Rating = (props: any) => {
 
     try {
       const response = await postAssessment(feedback_end, rating);
+      console.log(response)
       setVisible(true);
     } catch (error) {
       message.error("Erro ao enviar dados");
@@ -45,16 +46,16 @@ const Rating = (props: any) => {
     <Form>
       <Modal
         title="Aviso"
-        visible={visible}
+        open={visible}
         onOk={handleOk}
         onCancel={() => setVisible(false)}
       >
         <p>Obrigado por avaliar</p>
       </Modal>
-      <Title>Configurações da avaliação</Title>
+     
 
       <StyledQuestions>
-        <ConfigText />
+        {/* <ConfigText /> */}
       </StyledQuestions>
 
       <StyledCenter>
@@ -62,7 +63,7 @@ const Rating = (props: any) => {
       </StyledCenter>
 
       <StyledFeedback>
-        <ConfigFeedback />
+        {/* <ConfigFeedback /> */}
       </StyledFeedback>
 
       <TextRatingUser onChange={handleFeedbackChange} value={feedback_end} />
