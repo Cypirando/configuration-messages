@@ -22,7 +22,7 @@ const columns: ColumnsType<DataType> = [
 ];
 
 const data: DataType[] = [];
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 20; i++) {
   data.push({
     key: i,
     mensagem: `${i} - O que achou do serviço?`,
@@ -31,7 +31,7 @@ for (let i = 0; i < 100; i++) {
 }
 
 const TableConfig: React.FC = () => (
-  <Table columns={columns} dataSource={data} pagination={{ pageSize: 12 }} scroll={{ y: 240 }} />
+  <Table columns={columns} dataSource={data} pagination={{ pageSize: 10 }} scroll={{ y: 240 }} />
 );
 
 export default TableConfig;
