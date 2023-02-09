@@ -5,9 +5,6 @@ import Rating from "../../pages/Rating";
 import RatingConfiguration from "../../pages/RatingConfiguration";
 import TableConfig from "../TableConfig";
 import Title from "../../components/Title";
-import { StyledRoutesApp } from "./styles";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -62,9 +59,7 @@ const App: React.FC = () => {
         />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
-          
-        </Header>
+        <Header style={{ padding: 0, background: colorBgContainer }} />
         <Content style={{ margin: "24px 16px 0" }}>
           <div
             style={{
