@@ -1,5 +1,5 @@
 import { StyledLogo } from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Layout, Menu, theme } from "antd";
 import Rating from "../../pages/Rating";
 import RatingConfiguration from "../../pages/RatingConfiguration";
@@ -7,12 +7,11 @@ import TableConfig from "../TableConfig";
 import { StyledRoutesApp } from "./styles";
 import { Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Outlet } from "react-router-dom";
-
-const StateLayout = () => <Outlet />;
+// import { Outlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
+// const StateLayout = () => <Outlet />;
 const App: React.FC = () => {
   const navigate = useNavigate();
   const {
@@ -22,7 +21,7 @@ const App: React.FC = () => {
     "1": (
       <Routes>
         <Route
-          index
+          path="/"
           element={
             <StyledRoutesApp>
               <RatingConfiguration />
@@ -78,6 +77,9 @@ const App: React.FC = () => {
         break;
     }
   };
+  useEffect(() => {
+    navigate("/");
+  }, []);
   return (
     <>
       <Header style={{ padding: 0, background: colorBgContainer }} />
@@ -99,9 +101,9 @@ const App: React.FC = () => {
         </Sider>
         <Layout>
           <Content>
-            <Routes>
+            {/* <Routes>
               <Route element={<StateLayout />}></Route>
-            </Routes>
+            </Routes> */}
 
             {selectedComponent}
           </Content>

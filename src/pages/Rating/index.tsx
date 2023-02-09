@@ -1,8 +1,8 @@
 import { message, Modal } from "antd";
 import { useState } from "react";
 import Button from "../../components/Button";
-// import ConfigText from "../../components/ConfigText";
-// import ConfigFeedback from "../../components/ConfigFeedback";
+import ConfigText from "../../components/ConfigText";
+import ConfigFeedback from "../../components/ConfigFeedback";
 import Form from "../../components/Form";
 import Stars from "../../components/Stars";
 import TextRatingUser from "../../components/TextRatingUser";
@@ -55,7 +55,7 @@ const Rating = (props: any) => {
      
 
       <StyledQuestions>
-        {/* <ConfigText /> */}
+        <ConfigText />
       </StyledQuestions>
 
       <StyledCenter>
@@ -63,7 +63,7 @@ const Rating = (props: any) => {
       </StyledCenter>
 
       <StyledFeedback>
-        {/* <ConfigFeedback /> */}
+        <ConfigFeedback />
       </StyledFeedback>
 
       <TextRatingUser onChange={handleFeedbackChange} value={feedback_end} />

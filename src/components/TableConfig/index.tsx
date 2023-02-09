@@ -22,7 +22,7 @@ const columns: ColumnsType<DataType> = [
 ];
 
 const data: DataType[] = [];
-for (let i = 0; i < 20; i++) {
+for (let i = 1; i < 20; i++) {
   data.push({
     key: i,
     mensagem: `${i} - O que achou do serviço?`,
