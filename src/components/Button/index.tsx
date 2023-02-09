@@ -1,5 +1,4 @@
-// import { ReactElement } from "react";
-import React from "react";
+
 import { StyledButton } from "./styles";
 
 interface ButtonProps {
