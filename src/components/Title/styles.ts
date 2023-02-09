@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const StyledTitle = styled.h1`
-  background-color: #000fff;
   color: white;
   padding: 15px 32px;
   text-align: center;

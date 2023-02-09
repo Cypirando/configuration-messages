@@ -31,7 +31,7 @@ for (let i = 1; i < 20; i++) {
 }
 
 const TableConfig: React.FC = () => (
-  <Table columns={columns} dataSource={data} pagination={{ pageSize: 10 }} scroll={{ y: 240 }} />
+  <Table columns={columns} dataSource={data} pagination={{ pageSize: 10 }} scroll={{ y: 300 }} />
 );
 
 export default TableConfig;

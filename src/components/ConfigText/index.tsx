@@ -31,6 +31,9 @@ const ConfigText = () => {
       setIsLoading(false);
     });
   }, []);
+  if (isLoading) {
+    return <p>Carregando...</p>;
+  }
 
   return <p>{questionText}</p>;
 };

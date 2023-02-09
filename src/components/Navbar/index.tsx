@@ -1,12 +1,12 @@
-import { StyledLogo } from "./styles";
+import { StyledLogo, StyledRoutesApp } from "./styles";
 import { useEffect, useState } from "react";
 import { Layout, Menu, theme } from "antd";
 import Rating from "../../pages/Rating";
 import RatingConfiguration from "../../pages/RatingConfiguration";
 import TableConfig from "../TableConfig";
-import { StyledRoutesApp } from "./styles";
 import { Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Title from "../Title";
 // import { Outlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -14,9 +14,7 @@ const { Header, Content, Footer, Sider } = Layout;
 // const StateLayout = () => <Outlet />;
 const App: React.FC = () => {
   const navigate = useNavigate();
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+
   const componentsMap: { [key: string]: React.ReactElement } = {
     "1": (
       <Routes>
@@ -82,10 +80,12 @@ const App: React.FC = () => {
   }, []);
   return (
     <>
-      <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Header style={{ padding: 0, background: "#001529", display:"flex", justifyContent:"center" }}>
+          <Title>Configuração de mensagens</Title>
+        </Header>
       <Layout>
         <Sider>
-          <StyledLogo>
+          <StyledLogo >
             <img src="/logo-botdesigner-light.png" alt="Logo" height="32px" />
           </StyledLogo>
           <Menu
