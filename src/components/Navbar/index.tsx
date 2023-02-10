@@ -19,7 +19,7 @@ const App: React.FC = () => {
     "1": (
       <Routes>
         <Route
-          path="/"
+         index
           element={
             <StyledRoutesApp>
               <RatingConfiguration />
@@ -101,9 +101,7 @@ const App: React.FC = () => {
         </Sider>
         <Layout>
           <Content>
-            {/* <Routes>
-              <Route element={<StateLayout />}></Route>
-            </Routes> */}
+         
 
             {selectedComponent}
           </Content>

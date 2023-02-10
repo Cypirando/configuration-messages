@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
@@ -21,17 +22,26 @@ const columns: ColumnsType<DataType> = [
   },
 ];
 
-const data: DataType[] = [];
-for (let i = 1; i < 20; i++) {
-  data.push({
-    key: i,
-    mensagem: `${i} - O que achou do serviço?`,
-    feedback: "Otimo!",
-  });
-}
+const TableConfig: React.FC = () => {
+  const [data, setData] = useState<DataType[]>([]);
 
-const TableConfig: React.FC = () => (
-  <Table columns={columns} dataSource={data} pagination={{ pageSize: 10 }} scroll={{ y: 300 }} />
-);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get('http://localhost:9000/quiz');
+      const responseData = result.data.message.map((item:any, index:number) => ({
+        key: index,
+        mensagem: item.question_text,
+        feedback: item.feedback_text,
+      }));
+      setData(responseData);
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <Table columns={columns} dataSource={data} pagination={{ pageSize: 10 }} scroll={{ y: 300 }} />
+  );
+};
 
 export default TableConfig;
