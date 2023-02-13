@@ -19,7 +19,8 @@ const App: React.FC = () => {
     "1": (
       <Routes>
         <Route
-         index
+          index
+          path="/rating-configuration"
           element={
             <StyledRoutesApp>
               <RatingConfiguration />
@@ -71,21 +72,28 @@ const App: React.FC = () => {
         navigate("/rating");
         break;
       default:
-        navigate("/");
+        navigate("/rating-configuration");
         break;
     }
   };
   useEffect(() => {
-    navigate("/");
+    navigate("/rating-configuration");
   }, []);
   return (
     <>
-        <Header style={{ padding: 0, background: "#001529", display:"flex", justifyContent:"center" }}>
-          <Title>Configuração de mensagens</Title>
-        </Header>
+      <Header
+        style={{
+          padding: 0,
+          background: "#001529",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Title>Configuração de mensagens</Title>
+      </Header>
       <Layout>
         <Sider>
-          <StyledLogo >
+          <StyledLogo>
             <img src="/logo-botdesigner-light.png" alt="Logo" height="32px" />
           </StyledLogo>
           <Menu
@@ -100,11 +108,7 @@ const App: React.FC = () => {
           />
         </Sider>
         <Layout>
-          <Content>
-         
-
-            {selectedComponent}
-          </Content>
+          <Content>{selectedComponent}</Content>
         </Layout>
       </Layout>
       <Footer style={{ padding: 10, textAlign: "center" }}>
