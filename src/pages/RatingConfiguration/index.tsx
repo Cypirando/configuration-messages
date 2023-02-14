@@ -5,10 +5,11 @@ import TextConfig from "../../components/TextConfig";
 import TextRating from "../../components/TextRating";
 import { message } from "antd";
 import { postData } from "../../api";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 const RatingConfiguration = () => {
   const location = useLocation();
+  const { id } = useParams();
 
   const [question_text, setQuestion_text] = useState(
     location.state?.question_text || ""
@@ -19,10 +20,9 @@ const RatingConfiguration = () => {
   const [responseData, setResponseData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const idStr = new URLSearchParams(location.search).get("id");
-      if (idStr) {
+      if (id) {
         try {
-          const result = await axios.get(`http://localhost:9000/quiz/${idStr}`);
+          const result = await axios.get(`http://localhost:9000/quiz/${id}`);
           const responseArr = result.data.message.map(
             (item: any, index: number) => ({
               key: index,
@@ -41,8 +41,6 @@ const RatingConfiguration = () => {
     fetchData();
   }, [location]);
 
-  console.log(question_text, "q");
-  console.log(feedback_text, "f");
   const handleTextConfigChange = (newValue: any) => {
     setQuestion_text(newValue);
   };
@@ -56,14 +54,13 @@ const RatingConfiguration = () => {
       message.error("O campo da questão é obrigatório!");
       return;
     }
-  
-    const id = new URLSearchParams(location.search).get("id");
+
     if (id) {
       try {
         await axios.patch(`http://localhost:9000/quiz`, {
           id,
           question_text,
-          feedback_text
+          feedback_text,
         });
         message.success("Dados atualizados com sucesso!");
       } catch (error) {
@@ -82,14 +79,8 @@ const RatingConfiguration = () => {
 
   return (
     <Form>
-      <TextConfig
-        onChange={handleTextConfigChange}
-        value={question_text}
-      />
-      <TextRating
-        onChange={handleTextRatingChange}
-        value={feedback_text }
-      />
+      <TextConfig onChange={handleTextConfigChange} value={question_text} />
+      <TextRating onChange={handleTextRatingChange} value={feedback_text} />
 
       <Button onClick={handleClick}>Avançar</Button>
     </Form>

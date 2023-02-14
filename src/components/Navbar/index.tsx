@@ -19,6 +19,14 @@ const App: React.FC = () => {
     "1": (
       <Routes>
         <Route
+          path="/rating-configuration/:id"
+          element={
+            <StyledRoutesApp>
+              <RatingConfiguration />
+            </StyledRoutesApp>
+          }
+        />
+        <Route
           index
           path="/rating-configuration"
           element={
@@ -44,6 +52,15 @@ const App: React.FC = () => {
     "3": (
       <Routes>
         <Route
+          path="/rating/:id"
+          element={
+            <StyledRoutesApp>
+              <Rating />
+            </StyledRoutesApp>
+          }
+        />
+        <Route
+        index
           path="/rating"
           element={
             <StyledRoutesApp>

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Button, message } from "antd";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { getData } from "../../api";
+import { useNavigate } from "react-router-dom";
 import type { ColumnsType } from "antd/es/table";
-
 interface DataType {
   key: React.Key;
   mensagem: string;
@@ -29,20 +27,17 @@ const TableConfig: React.FC = () => {
       dataIndex: "actions",
       render: (text: any, record: DataType) => (
         <>
-        <Button onClick={() => handleEdit(record.id, record)}>Editar</Button>
-        <Button onClick={() => handleDelete(record.id)}>Excluir</Button>
-      </>
+          <Button onClick={() => handleEdit(record.id, record)}>Editar</Button>
+          <Button onClick={() => handleDelete(record.id)}>Excluir</Button>
+        </>
       ),
       width: 100,
     },
   ];
 
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const idStr = searchParams.get("id");
 
   const [data, setData] = useState<DataType[]>([]);
-  const [messagee, setMessagee] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,30 +56,8 @@ const TableConfig: React.FC = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const fetchMessage = async () => {
-      if (idStr) {
-        const messageData = await getData(parseInt(idStr));
-        setMessagee(messageData);
-      }
-    };
-
-    fetchMessage();
-  }, [idStr]);
-
   const handleEdit = (id: number, record: DataType) => {
-    navigate({
-      pathname: `/rating-configuration`,
-      search: `?id=${id}`,
-    });
-    window.history.pushState(
-      {
-        question_text: record.mensagem,
-        feedback_text: record.feedback,
-      },
-      ""
-    );
-    window.location.reload();
+    navigate(`/rating-configuration/${id}`);
   };
   const handleDelete = async (id: number) => {
     try {
@@ -101,7 +74,7 @@ const TableConfig: React.FC = () => {
       columns={columns}
       dataSource={data}
       pagination={{ pageSize: 10 }}
-      scroll={{ y: 300 }}
+      scroll={{ y: 600 }}
     />
   );
 };
