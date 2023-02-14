@@ -1,10 +1,11 @@
+
 import { StyledLogo, StyledRoutesApp } from "./styles";
 import { useState } from "react";
 import { Layout, Menu } from "antd";
 import Rating from "../../pages/Rating";
 import RatingConfiguration from "../../pages/RatingConfiguration";
 import TableConfig from "../TableConfig";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Title from "../Title";
 
@@ -32,6 +33,7 @@ const App: React.FC = () => {
             </StyledRoutesApp>
           }
         />
+        <Route element={<Outlet />} />
       </Routes>
     ),
     "2": (
@@ -44,6 +46,7 @@ const App: React.FC = () => {
             </StyledRoutesApp>
           }
         />
+        <Route element={<Outlet />} />
       </Routes>
     ),
     "3": (
@@ -64,6 +67,7 @@ const App: React.FC = () => {
             </StyledRoutesApp>
           }
         />
+        <Route element={<Outlet />} />
       </Routes>
     ),
   };
