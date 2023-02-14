@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Table, Button } from "antd";
+import { Table, Button, message } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getData } from "../../api";
 import type { ColumnsType } from "antd/es/table";
@@ -28,9 +28,12 @@ const TableConfig: React.FC = () => {
       title: "Ações",
       dataIndex: "actions",
       render: (text: any, record: DataType) => (
+        <>
         <Button onClick={() => handleEdit(record.id, record)}>Editar</Button>
+        <Button onClick={() => handleDelete(record.id)}>Excluir</Button>
+      </>
       ),
-      width: 50,
+      width: 100,
     },
   ];
 
@@ -39,7 +42,7 @@ const TableConfig: React.FC = () => {
   const idStr = searchParams.get("id");
 
   const [data, setData] = useState<DataType[]>([]);
-  const [message, setMessage] = useState({});
+  const [messagee, setMessagee] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +65,7 @@ const TableConfig: React.FC = () => {
     const fetchMessage = async () => {
       if (idStr) {
         const messageData = await getData(parseInt(idStr));
-        setMessage(messageData);
+        setMessagee(messageData);
       }
     };
 
@@ -82,6 +85,16 @@ const TableConfig: React.FC = () => {
       ""
     );
     window.location.reload();
+  };
+  const handleDelete = async (id: number) => {
+    try {
+      await axios.delete(`http://localhost:9000/quiz/${id}`);
+      setData(data.filter((item) => item.id !== id));
+      message.success("Item excluído com sucesso!");
+    } catch (error) {
+      console.error(error);
+      message.error("Erro ao excluir item.");
+    }
   };
   return (
     <Table
