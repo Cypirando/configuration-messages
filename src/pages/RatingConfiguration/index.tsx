@@ -56,13 +56,27 @@ const RatingConfiguration = () => {
       message.error("O campo da questão é obrigatório!");
       return;
     }
-
-    try {
-      const response = await postData(question_text, feedback_text);
-      message.success("Dados enviados com sucesso!");
-      console.log(response, "response");
-    } catch (error) {
-      message.error("Erro ao enviar dados");
+  
+    const id = new URLSearchParams(location.search).get("id");
+    if (id) {
+      try {
+        await axios.patch(`http://localhost:9000/quiz`, {
+          id,
+          question_text,
+          feedback_text
+        });
+        message.success("Dados atualizados com sucesso!");
+      } catch (error) {
+        message.error("Erro ao atualizar dados");
+      }
+    } else {
+      try {
+        const response = await postData(question_text, feedback_text);
+        message.success("Dados enviados com sucesso!");
+        console.log(response, "response");
+      } catch (error) {
+        message.error("Erro ao enviar dados");
+      }
     }
   };
 
