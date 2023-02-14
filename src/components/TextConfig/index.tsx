@@ -22,6 +22,7 @@ const TextConfig: React.FC<TextConfigProps> = ({ onChange, value })  => {
         style={{ height: 120, resize: "none" }}
         onChange={handleChange}
         placeholder="Deixe aqui sua pergunta..."
+        value={value}
       />
     </>
   );

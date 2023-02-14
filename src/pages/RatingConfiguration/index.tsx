@@ -17,15 +17,12 @@ const RatingConfiguration = () => {
     location.state?.feedback_text || ""
   );
   const [responseData, setResponseData] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       const idStr = new URLSearchParams(location.search).get("id");
       if (idStr) {
         try {
-          const result = await axios.get(
-            `http://localhost:9000/quiz/${idStr}`
-          );
+          const result = await axios.get(`http://localhost:9000/quiz/${idStr}`);
           const responseArr = result.data.message.map(
             (item: any, index: number) => ({
               key: index,
@@ -34,6 +31,8 @@ const RatingConfiguration = () => {
             })
           );
           setResponseData(responseArr);
+          setQuestion_text(responseArr[0].mensagem);
+          setFeedback_text(responseArr[0].feedback);
         } catch (error) {
           console.error(error);
         }
@@ -42,6 +41,8 @@ const RatingConfiguration = () => {
     fetchData();
   }, [location]);
 
+  console.log(question_text, "q");
+  console.log(feedback_text, "f");
   const handleTextConfigChange = (newValue: any) => {
     setQuestion_text(newValue);
   };
@@ -67,8 +68,15 @@ const RatingConfiguration = () => {
 
   return (
     <Form>
-      <TextConfig onChange={handleTextConfigChange} value={question_text} />
-      <TextRating onChange={handleTextRatingChange} value={feedback_text} />
+      <TextConfig
+        onChange={handleTextConfigChange}
+        value={question_text}
+      />
+      <TextRating
+        onChange={handleTextRatingChange}
+        value={feedback_text }
+      />
+
       <Button onClick={handleClick}>Avançar</Button>
     </Form>
   );

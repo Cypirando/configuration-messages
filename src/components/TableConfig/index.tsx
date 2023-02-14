@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Button } from "antd";
@@ -70,16 +69,19 @@ const TableConfig: React.FC = () => {
     fetchMessage();
   }, [idStr]);
 
-
   const handleEdit = (id: number, record: DataType) => {
     navigate({
       pathname: `/rating-configuration`,
-      search: `?id=${id}`
+      search: `?id=${id}`,
     });
-    window.history.pushState({
-      question_text: record.mensagem,
-      feedback_text: record.feedback,
-    }, "");
+    window.history.pushState(
+      {
+        question_text: record.mensagem,
+        feedback_text: record.feedback,
+      },
+      ""
+    );
+    window.location.reload();
   };
   return (
     <Table
