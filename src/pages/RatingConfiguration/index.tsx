@@ -1,15 +1,20 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../../components/Button";
 import Form from "../../components/Form";
 import TextConfig from "../../components/TextConfig";
 import TextRating from "../../components/TextRating";
 import { message } from "antd";
-import { postData } from "../../api";
-import { useLocation } from 'react-router-dom';
+import { postData, getData } from "../../api";
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 const RatingConfiguration = () => {
   const location = useLocation();
+  const [searchParams] = useSearchParams();
+  let id = 23;
+  const idStr = searchParams.get("id");
+  id = idStr ? +idStr : 0;
+  console.log(id)
+ 
   let state;
   try {
     const stateString = decodeURIComponent(location.search.replace('?state=', ''));
@@ -23,10 +28,21 @@ const RatingConfiguration = () => {
     state = {};
   }
   
-
   const [question_text, setQuestion_text] = useState(location.state?.question_text || "");
   const [feedback_text, setFeedback_text] = useState(location.state?.feedback_text || "");
-  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getData(id);
+        setQuestion_text(response.question_text);
+        setFeedback_text(response.feedback_text);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const handleTextConfigChange = (newValue: any) => {
     setQuestion_text(newValue);
   };
@@ -36,6 +52,7 @@ const RatingConfiguration = () => {
   };
   
   const handleClick = async () => {
+   
     if (!question_text) {
       message.error("O campo da questão é obrigatório!");
       return;

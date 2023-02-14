@@ -24,6 +24,24 @@ export const postData = async (
   }
 };
 
+export const getData = async ( id: number) => {
+  const configHeader = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
+    },
+  };
+
+  try {
+    const response = await axios.get(`http://localhost:9000/quiz/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const postAssessment = async (feedback_end: string, rating: number) => {
   const configHeader = {
     headers: {

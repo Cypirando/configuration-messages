@@ -76,9 +76,9 @@ const App: React.FC = () => {
         break;
     }
   };
-  useEffect(() => {
-    navigate("/rating-configuration");
-  }, []);
+  // useEffect(() => {
+  //   navigate("/rating-configuration");
+  // }, []);
   return (
     <>
       <Header
