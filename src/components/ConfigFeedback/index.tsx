@@ -11,7 +11,7 @@ const ConfigFeedback = (props: ConfigTextProps) => {
     return <p>Carregando...</p>;
   }
 
-  return <p></p>;
+  return <p>{props.text}</p>;
 };
 
 export default ConfigFeedback;
