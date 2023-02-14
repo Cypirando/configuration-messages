@@ -40,7 +40,7 @@ const Rating = () => {
 
     try {
       const response = await postAssessment(feedback_end, rating);
-      console.log(response)
+      console.log(response);
       setVisible(true);
     } catch (error) {
       message.error("Erro ao enviar dados");
@@ -50,24 +50,27 @@ const Rating = () => {
     setVisible(false);
     message.success("Dados enviados com sucesso!");
   };
-
   useEffect(() => {
     if (id) {
-      getQuestions(id).then(response => {
-         setQuestion_text(response.data);
-      }).catch(error => {
-        message.error("Erro ao obter questões");
-      });
+      getQuestions(id)
+        .then((response) => {
+          setQuestion_text(response);
+        })
+        .catch((error) => {
+          message.error("Erro ao obter questões");
+        });
 
-      getFeedback(id).then(response => {
-        setFeedback_text(response.data);
-      }).catch(error => {
-        message.error("Erro ao obter feedback");
-      });
+      getFeedback(id)
+        .then((response) => {
+          setFeedback_text(response);
+        })
+        .catch((error) => {
+          message.error("Erro ao obter feedback");
+        });
     }
-  }, [location]);
+  }, [id]);
 
-  console.log(question_text)
+
   return (
     <Form>
       <Modal
@@ -78,10 +81,9 @@ const Rating = () => {
       >
         <p>Obrigado por avaliar</p>
       </Modal>
-     
 
       <StyledQuestions>
-        <ConfigText text={question_text}  />
+        <ConfigText text={question_text} />
       </StyledQuestions>
 
       <StyledCenter>
@@ -89,7 +91,7 @@ const Rating = () => {
       </StyledCenter>
 
       <StyledFeedback>
-        <ConfigFeedback text={feedback_text}  />
+        <ConfigFeedback text={feedback_text} />
       </StyledFeedback>
 
       <TextRatingUser onChange={handleFeedbackChange} value={feedback_end} />

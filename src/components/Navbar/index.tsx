@@ -72,7 +72,8 @@ const App: React.FC = () => {
     ),
   };
 
-  const [selectedKey, setSelectedKey] = useState("1");
+  const [selectedKey, setSelectedKey] = useState("3");
+  
   const [selectedComponent, setSelectedComponent] = useState(
     componentsMap[selectedKey]
   );

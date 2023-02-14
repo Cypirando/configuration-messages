@@ -65,10 +65,14 @@ export const postAssessment = async (feedback_end: string, rating: number) => {
 
 
 
-export const getQuestions = async (quizId:string) => {
+export const getQuestions = async (quizId: string) => {
   try {
-    const response = await axios.get(`${API_URL}?id=${quizId}`);
-    return response.data;
+    const response = await axios.get(`${API_URL}/${quizId}`);
+    const message = response.data.message.find((item:any) => item.id === Number(quizId));
+    if (!message) {
+      throw new Error(`Pergunta com o ID ${quizId} não encontrada.`);
+    }
+    return message.question_text;
   } catch (error) {
     throw new Error('Erro ao obter questões');
   }
@@ -76,8 +80,12 @@ export const getQuestions = async (quizId:string) => {
 
 export const getFeedback = async (quizId:string) => {
   try {
-    const response = await axios.get(`${API_URL}?id=${quizId}`);
-    return response.data;
+    const response = await axios.get(`${API_URL}/${quizId}`);
+    const message = response.data.message.find((item:any) => item.id === Number(quizId));
+    if (!message) {
+      throw new Error(`Pergunta com o ID ${quizId} não encontrada.`);
+    }
+    return message.feedback_text;
   } catch (error) {
     throw new Error('Erro ao obter feedback');
   }
