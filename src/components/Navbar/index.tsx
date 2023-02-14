@@ -1,17 +1,15 @@
 import { StyledLogo, StyledRoutesApp } from "./styles";
-import { useEffect, useState } from "react";
-import { Layout, Menu, theme } from "antd";
+import { useState } from "react";
+import { Layout, Menu } from "antd";
 import Rating from "../../pages/Rating";
 import RatingConfiguration from "../../pages/RatingConfiguration";
 import TableConfig from "../TableConfig";
 import { Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Title from "../Title";
-import { Outlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const StateLayout = () => <Outlet />;
 const App: React.FC = () => {
   const navigate = useNavigate();
 
@@ -27,7 +25,6 @@ const App: React.FC = () => {
           }
         />
         <Route
-          index
           path="/rating-configuration"
           element={
             <StyledRoutesApp>
@@ -60,7 +57,6 @@ const App: React.FC = () => {
           }
         />
         <Route
-        index
           path="/rating"
           element={
             <StyledRoutesApp>
@@ -82,14 +78,14 @@ const App: React.FC = () => {
     setSelectedComponent(componentsMap[key]);
 
     switch (key) {
+      case "1":
+        navigate("/rating-configuration");
+        break;
       case "2":
         navigate("/table");
         break;
       case "3":
         navigate("/rating");
-        break;
-      default:
-        navigate("/rating-configuration");
         break;
     }
   };

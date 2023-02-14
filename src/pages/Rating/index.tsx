@@ -8,16 +8,21 @@ import Stars from "../../components/Stars";
 import TextRatingUser from "../../components/TextRatingUser";
 import { getQuestions, getFeedback, postAssessment } from "../../api";
 import { StyledCenter, StyledQuestions, StyledFeedback } from "./styles";
-import { useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
 
 const Rating = () => {
   const location = useLocation();
+  const { id } = useParams();
+
   const [feedback_end, setFeedback_end] = useState("");
   const [rating, setRating] = useState<number>(3);
   const [visible, setVisible] = useState(false);
-  const [questionsText, setQuestionsText] = useState("");
-  const [feedbackText, setFeedbackText] = useState("");
-
+  const [question_text, setQuestion_text] = useState(
+    location.state?.question_text || ""
+  );
+  const [feedback_text, setFeedback_text] = useState(
+    location.state?.feedback_text || ""
+  );
   const handleRatingChange = (value: number) => {
     setRating(value);
   };
@@ -47,22 +52,22 @@ const Rating = () => {
   };
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const id = searchParams.get('id');
     if (id) {
       getQuestions(id).then(response => {
-        setQuestionsText(response.data);
+         setQuestion_text(response.data);
       }).catch(error => {
         message.error("Erro ao obter questões");
       });
 
       getFeedback(id).then(response => {
-        setFeedbackText(response.data);
+        setFeedback_text(response.data);
       }).catch(error => {
         message.error("Erro ao obter feedback");
       });
     }
   }, [location]);
+
+  console.log(question_text)
   return (
     <Form>
       <Modal
@@ -76,7 +81,7 @@ const Rating = () => {
      
 
       <StyledQuestions>
-        <ConfigText text={questionsText}  />
+        <ConfigText text={question_text}  />
       </StyledQuestions>
 
       <StyledCenter>
@@ -84,7 +89,7 @@ const Rating = () => {
       </StyledCenter>
 
       <StyledFeedback>
-        <ConfigFeedback text={feedbackText}  />
+        <ConfigFeedback text={feedback_text}  />
       </StyledFeedback>
 
       <TextRatingUser onChange={handleFeedbackChange} value={feedback_end} />

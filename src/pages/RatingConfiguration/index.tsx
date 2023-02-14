@@ -49,6 +49,7 @@ const RatingConfiguration = () => {
     setFeedback_text(newValue);
   };
 
+  
   const handleClick = async () => {
     if (!question_text) {
       message.error("O campo da questão é obrigatório!");
