@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Table, message, Button } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Table, Button } from "antd";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { getData } from "../../api";
 import type { ColumnsType } from "antd/es/table";
 
 interface DataType {
@@ -27,13 +29,18 @@ const TableConfig: React.FC = () => {
       title: "Ações",
       dataIndex: "actions",
       render: (text: any, record: DataType) => (
-        <Button onClick={() => handleEdit(record.id)}>Editar</Button>
+        <Button onClick={() => handleEdit(record.id, record)}>Editar</Button>
       ),
       width: 50,
     },
   ];
+
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const idStr = searchParams.get("id");
+
   const [data, setData] = useState<DataType[]>([]);
+  const [message, setMessage] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,10 +59,28 @@ const TableConfig: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleEdit = (id: number) => {
-    navigate(`/rating-configuration?id=${id}`);
-  };
+  useEffect(() => {
+    const fetchMessage = async () => {
+      if (idStr) {
+        const messageData = await getData(parseInt(idStr));
+        setMessage(messageData);
+      }
+    };
 
+    fetchMessage();
+  }, [idStr]);
+
+
+  const handleEdit = (id: number, record: DataType) => {
+    navigate({
+      pathname: `/rating-configuration`,
+      search: `?id=${id}`
+    });
+    window.history.pushState({
+      question_text: record.mensagem,
+      feedback_text: record.feedback,
+    }, "");
+  };
   return (
     <Table
       columns={columns}

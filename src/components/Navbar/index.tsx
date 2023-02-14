@@ -7,11 +7,11 @@ import TableConfig from "../TableConfig";
 import { Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Title from "../Title";
-// import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-// const StateLayout = () => <Outlet />;
+const StateLayout = () => <Outlet />;
 const App: React.FC = () => {
   const navigate = useNavigate();
 
@@ -76,9 +76,7 @@ const App: React.FC = () => {
         break;
     }
   };
-  // useEffect(() => {
-  //   navigate("/rating-configuration");
-  // }, []);
+
   return (
     <>
       <Header
