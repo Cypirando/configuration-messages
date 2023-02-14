@@ -1,41 +1,16 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
 
-interface Question {
-  id: number;
-  question_text: string;
+interface ConfigTextProps {
+  text: string;
 }
-const ConfigText = () => {
-  const [ratingConfig, setRatingConfig] = useState<Question[]>([]);
-  const [questionText, setQuestionText] = useState("");
+const ConfigText = (props: ConfigTextProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [searchParams] = useSearchParams();
 
-  useEffect(() => {
-    if (!searchParams || isLoading) {
-      return;
-    }
-    setIsLoading(true);
-
-    axios(`http://localhost:9000/quiz`).then(({ data: { message } }) => {
-      if (!message) return;
-      setRatingConfig(message);
-      let id = 23;
-      const idStr = searchParams.get("id");
-      id = idStr ? +idStr : 0;
-      const selectedQuestion = message.filter(
-        ({ id: questionId }: any) => id === questionId
-      )[0];
-      setQuestionText(selectedQuestion ? selectedQuestion.question_text : "");
-      setIsLoading(false);
-    });
-  }, []);
   if (isLoading) {
     return <p>Carregando...</p>;
   }
 
-  return <p>{questionText}</p>;
+  return <p></p>;
 };
 
 export default ConfigText;

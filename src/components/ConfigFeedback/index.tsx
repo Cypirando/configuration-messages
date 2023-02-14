@@ -1,42 +1,17 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
 
-interface Question {
-  id: number;
-  feedback_text: string;
+interface ConfigTextProps {
+  text: string;
 }
 
-const ConfigFeedback = () => {
-  const [feedConfig, setFeedConfig] = useState<Question[]>([]);
-  const [feedbackText, setFeedbackText] = useState("");
-  const [searchParams] = useSearchParams();
+const ConfigFeedback = (props: ConfigTextProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (!searchParams || isLoading) {
-      return;
-    }
-    setIsLoading(true);
-
-    axios(`http://localhost:9000/quiz`).then(({ data: { message } }) => {
-      if (!message) return;
-      setFeedConfig(message);
-      let id = 23;
-      const idStr = searchParams.get("id");
-      id = idStr ? +idStr : 0;
-      const selectedQuestion = message.filter(
-        ({ id: questionId }: any) => id === questionId
-      )[0];
-      setFeedbackText(selectedQuestion ? selectedQuestion.feedback_text : "");
-      setIsLoading(false);
-    });
-  }, []);
   if (isLoading) {
     return <p>Carregando...</p>;
   }
 
-  return <p>{feedbackText}</p>;
+  return <p></p>;
 };
 
 export default ConfigFeedback;

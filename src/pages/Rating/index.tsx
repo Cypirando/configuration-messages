@@ -1,19 +1,22 @@
 import { message, Modal } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../components/Button";
 import ConfigText from "../../components/ConfigText";
 import ConfigFeedback from "../../components/ConfigFeedback";
 import Form from "../../components/Form";
 import Stars from "../../components/Stars";
 import TextRatingUser from "../../components/TextRatingUser";
-import { postAssessment } from "../../api";
-
+import { getQuestions, getFeedback, postAssessment } from "../../api";
 import { StyledCenter, StyledQuestions, StyledFeedback } from "./styles";
+import { useLocation } from "react-router";
 
-const Rating = (props: any) => {
+const Rating = () => {
+  const location = useLocation();
   const [feedback_end, setFeedback_end] = useState("");
   const [rating, setRating] = useState<number>(3);
   const [visible, setVisible] = useState(false);
+  const [questionsText, setQuestionsText] = useState("");
+  const [feedbackText, setFeedbackText] = useState("");
 
   const handleRatingChange = (value: number) => {
     setRating(value);
@@ -42,6 +45,24 @@ const Rating = (props: any) => {
     setVisible(false);
     message.success("Dados enviados com sucesso!");
   };
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get('id');
+    if (id) {
+      getQuestions(id).then(response => {
+        setQuestionsText(response.data);
+      }).catch(error => {
+        message.error("Erro ao obter questões");
+      });
+
+      getFeedback(id).then(response => {
+        setFeedbackText(response.data);
+      }).catch(error => {
+        message.error("Erro ao obter feedback");
+      });
+    }
+  }, [location]);
   return (
     <Form>
       <Modal
@@ -55,7 +76,7 @@ const Rating = (props: any) => {
      
 
       <StyledQuestions>
-        <ConfigText />
+        <ConfigText text={questionsText}  />
       </StyledQuestions>
 
       <StyledCenter>
@@ -63,7 +84,7 @@ const Rating = (props: any) => {
       </StyledCenter>
 
       <StyledFeedback>
-        <ConfigFeedback />
+        <ConfigFeedback text={feedbackText}  />
       </StyledFeedback>
 
       <TextRatingUser onChange={handleFeedbackChange} value={feedback_end} />

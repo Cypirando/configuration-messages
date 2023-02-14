@@ -1,5 +1,5 @@
 import axios from "axios";
-
+const API_URL = 'http://localhost:9000/quiz';
 export const postData = async (
   question_text: string,
   feedback_text: string
@@ -14,7 +14,7 @@ export const postData = async (
   };
   try {
     const response = await axios.post(
-      "http://localhost:9000/quiz",
+      `${API_URL}`,
       { question_text, feedback_text },
       configHeader
     );
@@ -34,7 +34,7 @@ export const getData = async ( id: number) => {
   };
 
   try {
-    const response = await axios.get(`http://localhost:9000/quiz/${id}`);
+    const response = await axios.get(`${API_URL}/${id}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -62,3 +62,24 @@ export const postAssessment = async (feedback_end: string, rating: number) => {
     console.error(error);
   }
 };
+
+
+
+export const getQuestions = async (quizId:string) => {
+  try {
+    const response = await axios.get(`${API_URL}?id=${quizId}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Erro ao obter questões');
+  }
+};
+
+export const getFeedback = async (quizId:string) => {
+  try {
+    const response = await axios.get(`${API_URL}?id=${quizId}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Erro ao obter feedback');
+  }
+};
+
