@@ -8,6 +8,7 @@ import TableConfig from "../TableConfig";
 import { Route, Routes, Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Title from "../Title";
+import TableRating from "../TableRating";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -39,7 +40,7 @@ const App: React.FC = () => {
     "2": (
       <Routes>
         <Route
-          path="/table"
+          path="/table-configuration"
           element={
             <StyledRoutesApp>
               <TableConfig />
@@ -70,6 +71,19 @@ const App: React.FC = () => {
         <Route element={<Outlet />} />
       </Routes>
     ),
+    "4": (
+      <Routes>
+        <Route
+          path="/table-rating"
+          element={
+            <StyledRoutesApp>
+              <TableRating />
+            </StyledRoutesApp>
+          }
+        />
+        <Route element={<Outlet />} />
+      </Routes>
+    ),
   };
 
   const [selectedKey, setSelectedKey] = useState("3");
@@ -87,10 +101,13 @@ const App: React.FC = () => {
         navigate("/rating-configuration");
         break;
       case "2":
-        navigate("/table");
+        navigate("/table-configuration");
         break;
       case "3":
         navigate("/rating");
+        break;
+        case "4":
+        navigate("/table-rating");
         break;
     }
   };
@@ -117,9 +134,10 @@ const App: React.FC = () => {
             onClick={({ key }) => handleMenuClick(key)}
             selectedKeys={[selectedKey]}
             items={[
-              { key: "1", label: "Config Mensagens" },
-              { key: "2", label: "Tabela" },
+              { key: "1", label: "Configuração Mensagens" },
+              { key: "2", label: "Lista Configuração" },
               { key: "3", label: "Avaliação" },
+              { key: "4", label: "Lista Avaliaçao" },
             ]}
           />
         </Sider>
