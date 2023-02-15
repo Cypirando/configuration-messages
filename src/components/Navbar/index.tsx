@@ -163,7 +163,7 @@ const App: React.FC = () => {
       <Layout>
         <Header style={{ background: "#fff", padding: 0 }} />
         <Content style={{ margin: "0 16px" }}>{selectedComponent}</Content>
-        <Footer style={{ textAlign: "center" }}>Footer Text</Footer>
+        <Footer style={{ textAlign: "center" }}>Botdesigner ©2023</Footer>
       </Layout>
     </Layout>
   );
