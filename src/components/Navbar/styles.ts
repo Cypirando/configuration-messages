@@ -11,3 +11,6 @@ export const StyledRoutesApp = styled.section`
   display: flex;
   justify-content: center;
 `;
+export const StyledContainer = styled.section`
+  min-height: 39.6rem;
+`;

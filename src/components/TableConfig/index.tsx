@@ -28,6 +28,7 @@ const TableConfig: React.FC = () => {
       render: (text: any, record: DataType) => (
         <>
           <Button onClick={() => handleEdit(record.id, record)}>Editar</Button>
+          <Button onClick={() => handleEvaluate(record.id)}>Avaliar</Button>
           <Button onClick={() => handleDelete(record.id)}>Excluir</Button>
         </>
       ),
@@ -59,6 +60,10 @@ const TableConfig: React.FC = () => {
   const handleEdit = (id: number, record: DataType) => {
     navigate(`/rating-configuration/${id}`);
   };
+const handleEvaluate = (id: number) => {
+  console.log("oi")
+}
+
   const handleDelete = async (id: number) => {
     try {
       await axios.delete(`http://localhost:9000/quiz/${id}`);
@@ -74,7 +79,7 @@ const TableConfig: React.FC = () => {
       columns={columns}
       dataSource={data}
       pagination={{ pageSize: 10 }}
-      scroll={{ y: 300 }}
+      scroll={{ y: 469 }}
     />
   );
 };

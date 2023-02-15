@@ -1,5 +1,4 @@
-
-import { StyledLogo, StyledRoutesApp } from "./styles";
+import { StyledContainer, StyledLogo, StyledRoutesApp } from "./styles";
 import { useState } from "react";
 import { Layout, Menu } from "antd";
 import Rating from "../../pages/Rating";
@@ -87,7 +86,7 @@ const App: React.FC = () => {
   };
 
   const [selectedKey, setSelectedKey] = useState("3");
-  
+
   const [selectedComponent, setSelectedComponent] = useState(
     componentsMap[selectedKey]
   );
@@ -106,7 +105,7 @@ const App: React.FC = () => {
       case "3":
         navigate("/rating");
         break;
-        case "4":
+      case "4":
         navigate("/table-rating");
         break;
     }
@@ -126,20 +125,22 @@ const App: React.FC = () => {
       </Header>
       <Layout>
         <Sider>
-          <StyledLogo>
-            <img src="/logo-botdesigner-light.png" alt="Logo" height="32px" />
-          </StyledLogo>
-          <Menu
-            theme="dark"
-            onClick={({ key }) => handleMenuClick(key)}
-            selectedKeys={[selectedKey]}
-            items={[
-              { key: "1", label: "Configuração Mensagens" },
-              { key: "2", label: "Lista Configuração" },
-              { key: "3", label: "Avaliação" },
-              { key: "4", label: "Lista Avaliaçao" },
-            ]}
-          />
+          <StyledContainer>
+            <StyledLogo>
+              <img src="/logo-botdesigner-light.png" alt="Logo" height="32px" />
+            </StyledLogo>
+            <Menu
+              theme="dark"
+              onClick={({ key }) => handleMenuClick(key)}
+              selectedKeys={[selectedKey]}
+              items={[
+                { key: "1", label: "Configuração Mensagens" },
+                { key: "2", label: "Lista Configuração" },
+                { key: "3", label: "Avaliação" },
+                { key: "4", label: "Lista Avaliaçao" },
+              ]}
+            />
+          </StyledContainer>
         </Sider>
         <Layout>
           <Content>{selectedComponent}</Content>
