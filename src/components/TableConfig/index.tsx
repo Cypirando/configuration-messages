@@ -59,10 +59,12 @@ const TableConfig: React.FC = () => {
 
   const handleEdit = (id: number, record: DataType) => {
     navigate(`/rating-configuration/${id}`);
+    window.location.reload();
   };
-const handleEvaluate = (id: number) => {
-  console.log("oi")
-}
+  const handleEvaluate = (id: number) => {
+    navigate(`/rating/${id}`);
+    window.location.reload();
+  };
 
   const handleDelete = async (id: number) => {
     try {
