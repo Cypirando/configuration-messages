@@ -1,21 +1,21 @@
-import { StyledLogo, StyledRoutesApp } from "./styles";
-import { useEffect, useState } from "react";
+import { StyledContainer, StyledLogo, StyledRoutesApp } from "./styles";
+import { useState } from "react";
 import { Layout, Menu } from "antd";
 import Rating from "../../pages/Rating";
 import RatingConfiguration from "../../pages/RatingConfiguration";
 import TableConfig from "../TableConfig";
 import { Route, Routes, Outlet } from "react-router-dom";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Title from "../Title";
 import TableRating from "../TableRating";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 const App: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const componentsMap: { [key: string]: React.ReactElement } = {
-    "rating-configuration": (
+    "1": (
       <Routes>
         <Route
           path="/rating-configuration/:id"
@@ -36,7 +36,7 @@ const App: React.FC = () => {
         <Route element={<Outlet />} />
       </Routes>
     ),
-    "table-configuration": (
+    "2": (
       <Routes>
         <Route
           path="/table-configuration"
@@ -49,7 +49,7 @@ const App: React.FC = () => {
         <Route element={<Outlet />} />
       </Routes>
     ),
-    rating: (
+    "3": (
       <Routes>
         <Route
           path="/rating/:id"
@@ -70,7 +70,7 @@ const App: React.FC = () => {
         <Route element={<Outlet />} />
       </Routes>
     ),
-    "table-rating": (
+    "4": (
       <Routes>
         <Route
           path="/table-rating"
@@ -85,7 +85,7 @@ const App: React.FC = () => {
     ),
   };
 
-  const [selectedKey, setSelectedKey] = useState("rating");
+  const [selectedKey, setSelectedKey] = useState("3");
 
   const [selectedComponent, setSelectedComponent] = useState(
     componentsMap[selectedKey]
@@ -96,76 +96,60 @@ const App: React.FC = () => {
     setSelectedComponent(componentsMap[key]);
 
     switch (key) {
-      case "rating-configuration":
+      case "1":
         navigate("/rating-configuration");
         break;
-      case "table-configuration":
+      case "2":
         navigate("/table-configuration");
         break;
-      case "rating":
+      case "3":
         navigate("/rating");
         break;
-      case "table-rating":
+      case "4":
         navigate("/table-rating");
         break;
     }
   };
 
-  useEffect(() => {
-    const path = location.pathname;
-
-    if (path.startsWith("/rating-configuration")) {
-      setSelectedKey("rating-configuration");
-      setSelectedComponent(componentsMap["rating-configuration"]);
-    } else if (path.startsWith("/table-configuration")) {
-      setSelectedKey("table-configuration");
-      setSelectedComponent(componentsMap["table-configuration"]);
-    } else if (path.startsWith("/rating")) {
-      setSelectedKey("rating");
-      setSelectedComponent(componentsMap["rating"]);
-    } else if (path.startsWith("/table-rating")) {
-    } else if (path.startsWith("/table-rating")) {
-      setSelectedKey("table-rating");
-      setSelectedComponent(componentsMap["table-rating"]);
-    }
-  }, [location.pathname]);
-
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <Sider>
-        <StyledLogo>
-          <img src="/logo-botdesigner-light.png" alt="Logo" height="32px" />
-        </StyledLogo>
-        <Menu theme="dark" selectedKeys={[selectedKey]} mode="inline">
-          <Menu.Item key="rating" onClick={() => handleMenuClick("rating")}>
-            Rating
-          </Menu.Item>
-          <Menu.Item
-            key="rating-configuration"
-            onClick={() => handleMenuClick("rating-configuration")}
-          >
-            Rating Configuration
-          </Menu.Item>
-          <Menu.Item
-            key="table-configuration"
-            onClick={() => handleMenuClick("table-configuration")}
-          >
-            Table Configuration
-          </Menu.Item>
-          <Menu.Item
-            key="table-rating"
-            onClick={() => handleMenuClick("table-rating")}
-          >
-            Table Rating
-          </Menu.Item>
-        </Menu>
-      </Sider>
+    <>
+      <Header
+        style={{
+          padding: 0,
+          background: "#001529",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Title>Configuração de mensagens</Title>
+      </Header>
       <Layout>
-        <Header style={{ background: "#fff", padding: 0 }} />
-        <Content style={{ margin: "0 16px" }}>{selectedComponent}</Content>
-        <Footer style={{ textAlign: "center" }}>Footer Text</Footer>
+        <Sider>
+          <StyledContainer>
+            <StyledLogo>
+              <img src="/logo-botdesigner-light.png" alt="Logo" height="32px" />
+            </StyledLogo>
+            <Menu
+              theme="dark"
+              onClick={({ key }) => handleMenuClick(key)}
+              selectedKeys={[selectedKey]}
+              items={[
+                { key: "1", label: "Configuração Mensagens" },
+                { key: "2", label: "Lista Configuração" },
+                { key: "3", label: "Avaliação" },
+                { key: "4", label: "Lista Avaliaçao" },
+              ]}
+            />
+          </StyledContainer>
+        </Sider>
+        <Layout>
+          <Content>{selectedComponent}</Content>
+        </Layout>
       </Layout>
-    </Layout>
+      <Footer style={{ padding: 10, textAlign: "center" }}>
+        Botdesigner ©2023
+      </Footer>
+    </>
   );
 };
 
