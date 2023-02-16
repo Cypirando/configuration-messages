@@ -131,37 +131,37 @@ const App: React.FC = () => {
   }, [location.pathname]);
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <Sider>
+    
+    <Layout  style={{ minHeight: "100vh" }}>
+      <Sider >
         <StyledLogo>
           <img src="/logo-botdesigner-light.png" alt="Logo" height="32px" />
         </StyledLogo>
         <Menu theme="dark" selectedKeys={[selectedKey]} mode="inline">
           <Menu.Item key="rating" onClick={() => handleMenuClick("rating")}>
-            Rating
+            Avaliação
           </Menu.Item>
           <Menu.Item
             key="rating-configuration"
             onClick={() => handleMenuClick("rating-configuration")}
           >
-            Rating Configuration
+            Avaliação de Configuração
           </Menu.Item>
           <Menu.Item
             key="table-configuration"
             onClick={() => handleMenuClick("table-configuration")}
           >
-            Table Configuration
+            Tabela de Configurações
           </Menu.Item>
           <Menu.Item
             key="table-rating"
             onClick={() => handleMenuClick("table-rating")}
           >
-            Table Rating
+            Tabela de Avaliações
           </Menu.Item>
         </Menu>
       </Sider>
       <Layout>
-        <Header style={{ background: "#fff", padding: 0 }} />
         <Content style={{ margin: "0 16px" }}>{selectedComponent}</Content>
         <Footer style={{ textAlign: "center" }}>Botdesigner ©2023</Footer>
       </Layout>

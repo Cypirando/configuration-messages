@@ -79,7 +79,7 @@ const TableConfig: React.FC = () => {
       columns={columns}
       dataSource={data}
       pagination={{ pageSize: 10 }}
-      scroll={{ y: 469 }}
+      scroll={{ y: 440 }}
     />
   );
 };

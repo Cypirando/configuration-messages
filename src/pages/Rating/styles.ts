@@ -6,7 +6,7 @@ export const StyledCenter = styled.div`
 `;
 export const StyledQuestions = styled.div`
   display: flex;
-  font-size: large;
+  font-size: 22px;
   justify-content: center;
   background: aliceblue;
   border-radius:4px;
@@ -20,12 +20,16 @@ export const StyledFeedback = styled.div`
   display: flex;
   justify-content: center;
   color: darkgray;
-  font-size: smaller;
-  max-width: 300px;
+  font-size: 18px;
+  max-width: 400px;
   background: whitesmoke;
   border-radius:4px;
   padding: 0 10px;
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
   
+`;
+export const StyledBtn = styled.div`
+  display: flex;
+  justify-content: end;
 `;

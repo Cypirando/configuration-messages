@@ -90,4 +90,4 @@ export const getFeedback = async (quizId:string) => {
     throw new Error('Erro ao obter feedback');
   }
 };
-
+ 

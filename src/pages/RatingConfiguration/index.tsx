@@ -7,6 +7,7 @@ import { message } from "antd";
 import { postData } from "../../api";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
+import { StyledBtn } from "./styles";
 const RatingConfiguration = () => {
   const location = useLocation();
   const { id } = useParams();
@@ -49,7 +50,6 @@ const RatingConfiguration = () => {
     setFeedback_text(newValue);
   };
 
-  
   const handleClick = async () => {
     if (!question_text) {
       message.error("O campo da questão é obrigatório!");
@@ -82,8 +82,9 @@ const RatingConfiguration = () => {
     <Form>
       <TextConfig onChange={handleTextConfigChange} value={question_text} />
       <TextRating onChange={handleTextRatingChange} value={feedback_text} />
-
-      <Button onClick={handleClick}>Avançar</Button>
+      <StyledBtn>
+        <Button onClick={handleClick} text="Salvar" />
+      </StyledBtn>
     </Form>
   );
 };

@@ -1,5 +1,6 @@
 import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
 import { Rate } from "antd";
+import { StyledStar } from "./styles";
 
 const customIcons: Record<number, React.ReactNode> = {
   1: <FrownOutlined />,
@@ -21,7 +22,9 @@ const Stars: React.FC<StarProps> = ({ onChange, value }) => {
   };
   return (
     <>
-      <Rate defaultValue={3} character={character} onChange={handleChange} />
+      
+        <Rate defaultValue={3} character={character} onChange={handleChange}  style={{ fontSize: "34px" }} />
+      
     </>
   );
 };

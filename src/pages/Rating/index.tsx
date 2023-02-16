@@ -7,8 +7,9 @@ import Form from "../../components/Form";
 import Stars from "../../components/Stars";
 import TextRatingUser from "../../components/TextRatingUser";
 import { getQuestions, getFeedback, postAssessment } from "../../api";
-import { StyledCenter, StyledQuestions, StyledFeedback } from "./styles";
+import { StyledCenter, StyledQuestions, StyledFeedback, StyledBtn } from "./styles";
 import { useLocation, useParams } from "react-router";
+
 
 const Rating = () => {
   const location = useLocation();
@@ -46,10 +47,12 @@ const Rating = () => {
       message.error("Erro ao enviar dados");
     }
   };
+   
   const handleOk = () => {
     setVisible(false);
     message.success("Dados enviados com sucesso!");
   };
+  
   useEffect(() => {
     if (id) {
       getQuestions(id)
@@ -69,8 +72,7 @@ const Rating = () => {
         });
     }
   }, [id]);
-
-
+ 
   return (
     <Form>
       <Modal
@@ -95,7 +97,9 @@ const Rating = () => {
       </StyledFeedback>
 
       <TextRatingUser onChange={handleFeedbackChange} value={feedback_end} />
-      <Button onClick={handleClick}>Avançar</Button>
+      <StyledBtn>
+        <Button onClick={handleClick} text="Avançar" />
+      </StyledBtn>
     </Form>
   );
 };
