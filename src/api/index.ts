@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = 'http://localhost:9000/quiz';
+const API_URL = "http://localhost:9000/quiz";
 export const postData = async (
   question_text: string,
   feedback_text: string
@@ -24,7 +24,7 @@ export const postData = async (
   }
 };
 
-export const getData = async ( id: number) => {
+export const getData = async (id: number) => {
   const configHeader = {
     headers: {
       "Content-Type": "application/json",
@@ -42,7 +42,11 @@ export const getData = async ( id: number) => {
   }
 };
 
-export const postAssessment = async (feedback_end: string, rating: number) => {
+export const postAssessment = async (
+  id_comments: number,
+  feedback_end: string,
+  rating: number
+) => {
   const configHeader = {
     headers: {
       "Content-Type": "application/json",
@@ -54,40 +58,52 @@ export const postAssessment = async (feedback_end: string, rating: number) => {
   try {
     const response = await axios.post(
       "http://localhost:9000/assessment",
-      { feedback_end, rating },
+      { feedback_end, rating, id_comments },
       configHeader
     );
-    return response;
+    if (response.status === 201) {
+      return response.data;
+    } else {
+      throw new Error("Erro ao enviar dados");
+    }
   } catch (error) {
     console.error(error);
+    throw new Error("Erro ao enviar dados");
   }
 };
-
-
 
 export const getQuestions = async (quizId: string) => {
   try {
     const response = await axios.get(`${API_URL}/${quizId}`);
-    const message = response.data.message.find((item:any) => item.id === Number(quizId));
+    const message = response.data.message.find(
+      (item: any) => item.id === Number(quizId)
+    );
     if (!message) {
       throw new Error(`Pergunta com o ID ${quizId} não encontrada.`);
     }
-    return message.question_text;
+    return {
+      id: message.id,
+      question_text: message.question_text,
+    };
   } catch (error) {
-    throw new Error('Erro ao obter questões');
+    throw new Error("Erro ao obter questões");
   }
 };
 
-export const getFeedback = async (quizId:string) => {
+export const getFeedback = async (quizId: string) => {
   try {
     const response = await axios.get(`${API_URL}/${quizId}`);
-    const message = response.data.message.find((item:any) => item.id === Number(quizId));
+    const message = response.data.message.find(
+      (item: any) => item.id === Number(quizId)
+    );
     if (!message) {
       throw new Error(`Pergunta com o ID ${quizId} não encontrada.`);
     }
-    return message.feedback_text;
+    return {
+      id: message.id,
+      feedback_text: message.feedback_text,
+    };
   } catch (error) {
-    throw new Error('Erro ao obter feedback');
+    throw new Error("Erro ao obter feedback");
   }
 };
- 

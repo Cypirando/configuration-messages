@@ -7,9 +7,13 @@ import Form from "../../components/Form";
 import Stars from "../../components/Stars";
 import TextRatingUser from "../../components/TextRatingUser";
 import { getQuestions, getFeedback, postAssessment } from "../../api";
-import { StyledCenter, StyledQuestions, StyledFeedback, StyledBtn } from "./styles";
+import {
+  StyledCenter,
+  StyledQuestions,
+  StyledFeedback,
+  StyledBtn,
+} from "./styles";
 import { useLocation, useParams } from "react-router";
-
 
 const Rating = () => {
   const location = useLocation();
@@ -24,6 +28,7 @@ const Rating = () => {
   const [feedback_text, setFeedback_text] = useState(
     location.state?.feedback_text || ""
   );
+  const [id_comments, setIdComments] = useState<number>(63);
   const handleRatingChange = (value: number) => {
     setRating(value);
   };
@@ -40,24 +45,26 @@ const Rating = () => {
     }
 
     try {
-      const response = await postAssessment(feedback_end, rating);
-      console.log(response);
+      console.log("Dados enviados para API:", id_comments, feedback_end, rating);
+      const response = await postAssessment(id_comments, feedback_end, rating);
       setVisible(true);
+      console.log(response, "response ");
     } catch (error) {
+      console.log(error)
       message.error("Erro ao enviar dados");
     }
   };
-   
   const handleOk = () => {
     setVisible(false);
     message.success("Dados enviados com sucesso!");
   };
-  
+
   useEffect(() => {
     if (id) {
       getQuestions(id)
         .then((response) => {
-          setQuestion_text(response);
+          setQuestion_text(response.question_text);
+          setIdComments(response.id);
         })
         .catch((error) => {
           message.error("Erro ao obter questões");
@@ -65,14 +72,14 @@ const Rating = () => {
 
       getFeedback(id)
         .then((response) => {
-          setFeedback_text(response);
+          setFeedback_text(response.feedback_text);
+          setIdComments(response.id);
         })
         .catch((error) => {
           message.error("Erro ao obter feedback");
         });
     }
   }, [id]);
- 
   return (
     <Form>
       <Modal
